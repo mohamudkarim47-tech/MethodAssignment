@@ -1,40 +1,55 @@
+
 using System;
 
-namespace MethodAssignment
+// Create an interface named IQuittable.
+// An interface defines methods that implementing classes must provide.
+public interface IQuittable
 {
-    // Step 1: Create a class
-    public class MathProcessor
-    {
-        // Create a void method that takes two integers as parameters.
-        // It performs a math operation on the first integer and displays the second integer.
-        public void ProcessNumbers(int firstNumber, int secondNumber)
-        {
-            // Perform a math operation on the first integer (e.g., multiply by 2)
-            int result = firstNumber * 2;
+    // Declare a void method named Quit().
+    // This method does not return any value.
+    void Quit();
+}
 
-            // Display the second integer to the console screen
-            Console.WriteLine($"The second integer is: {secondNumber}");
-        }
+// Create the Employee class and implement the IQuittable interface.
+public class Employee : IQuittable
+{
+    // Declare a property to store the employee's first name.
+    public string FirstName { get; set; }
+
+    // Declare a property to store the employee's last name.
+    public string LastName { get; set; }
+
+    // Implement the Quit() method required by the IQuittable interface.
+    public void Quit()
+    {
+        // Display a message when the employee quits.
+        Console.WriteLine(FirstName + " " + LastName + " has quit the company.");
     }
+}
 
-    class Program
+// Create the main program class.
+class Program
+{
+    // Main method is the starting point of the console application.
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            // Step 2: In the Main() method, instantiate the class
-            MathProcessor processor = new MathProcessor();
+        // Create an Employee object and assign employee details.
+        Employee employee = new Employee();
 
-            // Step 3: Call the method in the class, passing in two numbers (positional arguments)
-            Console.WriteLine("Calling method with positional arguments:");
-            processor.ProcessNumbers(5, 20);
+        // Set the employee's first name.
+        employee.FirstName = "John";
 
-            // Step 4: Call the method in the class, specifying the parameters by name (named arguments)
-            Console.WriteLine("\nCalling method with named arguments:");
-            processor.ProcessNumbers(firstNumber: 10, secondNumber: 42);
+        // Set the employee's last name.
+        employee.LastName = "Smith";
 
-            // Keep console open until a key is pressed
-            Console.WriteLine("\nPress any key to exit...");
-            Console.ReadKey();
-        }
+        // Use polymorphism to store the Employee object
+        // in a variable of interface type IQuittable.
+        IQuittable quittableEmployee = employee;
+
+        // Call the Quit() method using the interface reference.
+        quittableEmployee.Quit();
+
+        // Keep the console window open until the user presses a key.
+        Console.ReadLine();
     }
 }
